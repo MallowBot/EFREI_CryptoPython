@@ -20,14 +20,14 @@ def encryptage(valeur):
     token = f.encrypt(valeur_bytes)  # Encrypt la valeur
     return f"Valeur encryptée : {token.decode()}"  # Retourne le token en str
 
-@app.route('/decrypt/<valeur>')
-def decrypt(valeur):
+@app.route('/decrypt/<string:valeur>')
+def decryptage(valeur):
     try:
-        valeur_bytes = valeur.encode()
-        valeur_decrypted = f.decrypt(valeur_bytes)
-        return valeur_decrypted.decode()
+        valeur_bytes = valeur.encode()  # Conversion str -> bytes
+        decrypted = f.decrypt(valeur_bytes)  # Déchiffre
+        return f"Valeur décryptée : {decrypted.decode()}"
     except:
-        return "Erreur : impossible de décrypter cette valeur."
+        return "Erreur : impossible de déchiffrer la valeur. Vérifiez qu'elle a bien été encryptée avec cette session."
 
 if __name__ == "__main__":
   app.run(debug=True)
